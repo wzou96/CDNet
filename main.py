@@ -207,12 +207,6 @@ def train(train_loader, model, estimator, criterion, optimizer, optimizer_estima
         images = images.cuda()
         target_DR = target_DR.cuda()
         target_DME = target_DME.cuda()
-        '''
-        target_uniform_DR = torch.tensor([1/5] * 5)
-        target_uniform_DR = target_uniform_DR.expand(images.size(0), 5).cuda()
-        target_uniform_DME = torch.tensor([1/3] * 3)
-        target_uniform_DME = target_uniform_DME.expand(images.size(0), 3).cuda()
-        '''
 
         # compute output and loss
         x_DR_feature, x_DME_feature, output_DR, output_DME = model(images)
@@ -221,15 +215,7 @@ def train(train_loader, model, estimator, criterion, optimizer, optimizer_estima
         loss_DME = criterion(output_DME, target_DME)
         
         loss_mi = estimator(x_DR_feature, x_DME_feature)
-        
-        # output_dis_DR_confuse = discriminator_DR(x_DME_feature)
-        # output_dis_DME_confuse = discriminator_DME(x_DR_feature)
-
-        # loss_dis_DR_confuse = - torch.mean(criterion_mean(output_dis_DR_confuse))
-        # loss_dis_DME_confuse = - torch.mean(criterion_mean(output_dis_DME_confuse))
-        # loss_dis_DR_confuse = F.kl_div(input=output_dis_DR_confuse.softmax(dim=-1).log(), target=target_uniform_DR, reduction='batchmean')
-        # loss_dis_DME_confuse = F.kl_div(input=output_dis_DME_confuse.softmax(dim=-1).log(), target=target_uniform_DME, reduction='batchmean')
-
+   
         # measure accuracy and record loss
         acc1_DR, _ = accuracy(output_DR, target_DR, topk=(1, 2))
         acc1_DME, _ = accuracy(output_DME, target_DME, topk=(1, 2))
