@@ -1,1 +1,1 @@
-Download the pretrained model.
+Download the pretrained ResNet-18 model from [https://drive.google.com/file/d/1OwUv-IuBb4XEBwMT07abowqGJWI_YpEh/view?usp=drive_link](https://drive.google.com/file/d/1OwUv-IuBb4XEBwMT07abowqGJWI_YpEh/view?usp=drive_link).
